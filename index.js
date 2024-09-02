@@ -185,7 +185,6 @@ SlashCommandParser.addCommandObject(SlashCommand.fromProps({ name: 'stream-regex
         if (re.automationId) {
             re.automationId = args.automation;
         }
-        settings.regexList.push(re);
         settings.save();
         return re.id;
     },
