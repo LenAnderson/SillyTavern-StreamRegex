@@ -85,6 +85,20 @@ const init = async()=>{
                 const idx = chat.indexOf(proxy);
                 chat[idx] = original;
             }
+        } else if (gen && is_send_press && len < chat.length) {
+            const idx = chat.indexOf(proxy);
+            chat[idx] = original;
+            len = chat.length;
+            original = chat[len - 1];
+            proxy = new Proxy(original, {
+                set: (target, p, newValue, receiver)=>{
+                    if (p == 'mes') {
+                        runRegexList(newValue);
+                    }
+                    return Reflect.set(target, p, newValue, receiver);
+                },
+            });
+            chat[len - 1] = proxy;
         }
         await delay(100);
     }
